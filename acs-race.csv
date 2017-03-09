@@ -1,0 +1,19 @@
+ACSid,geoid,race,count,year,sourcefile
+Estimate; Total: - White alone,HD01_VD02,white,623309,2015,ACS_15_1YR_B02001_with_ann.csv
+Estimate; Total: - American Indian and Alaska Native alone,HD01_VD04,AI,6017,2015,ACS_15_1YR_B02001_with_ann.csv
+Estimate; Total: - Asian alone,HD01_VD05,asian,55377,2015,ACS_15_1YR_B02001_with_ann.csv
+Estimate; Total: - Black or African American alone,HD01_VD03,black,42914,2015,ACS_15_1YR_B02001_with_ann.csv
+Estimate; Total: - Native Hawaiian and Other Pacific Islander alone,HD01_VD06,hawaiian,4517,2015,ACS_15_1YR_B02001_with_ann.csv
+"Estimate; Total: - American Indian and Alaska Native alone
+Estimate; Total: - Asian alone
+Estimate; Total: - Black or African American alone
+Estimate; Total: - Native Hawaiian and Other Pacific Islander alone
+Estimate; Hispanic or Latino","HD01_VD02
+HD01_VD04
+HD01_VD05
+HD01_VD03
+HD01_VD06
+HD01_VD12",popOfColor,198065,2015,"ACS_15_1YR_B02001_with_ann.csv
+ACS_15_1YR_B03002_with_ann.csv"
+Estimate; Hispanic or Latino,HD01_VD12,latino,89240,2015,ACS_15_1YR_B03002_with_ann.csv
+Estimate; Total: - Two or more races,HD01_VD08,multiRacial,42405,2015,ACS_15_1YR_B02001_with_ann.csv

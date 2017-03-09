@@ -1,0 +1,18 @@
+/* Compare age totals */
+DROP TABLE IF EXISTS tempACS, tempPIT;
+
+SELECT acsage.age, sum(acsage.count) AS ACStotal
+INTO tempACS
+FROM acsage
+WHERE acsage.year = 2015
+GROUP BY acsage.age;
+
+SELECT agehousecomposition.age, sum(agehousecomposition.count) AS PITtotal
+INTO tempPIT
+FROM agehousecomposition
+WHERE agehousecomposition.year = 2015
+GROUP BY agehousecomposition.age;
+
+SELECT tempACS.*, tempPIT.PITtotal
+FROM tempACS
+INNER JOIN tempPIT ON tempACS.age = tempPIT.age;
