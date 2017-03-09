@@ -1,0 +1,64 @@
+DROP TABLE IF EXISTS public.ACSage;
+
+CREATE TABLE public.ACSage (
+	ACSid VARCHAR(1000),
+	geoid VARCHAR(255),
+	sex VARCHAR(25),
+	age int4range,
+	count INTEGER NOT NULL,
+	year INTEGER NOT NULL,
+	sourcefile VARCHAR(255)
+);
+
+COPY public.ACSage FROM '/home/vagrant/proj/acs-age.csv'
+	WITH(FORMAT CSV, HEADER);
+
+ALTER TABLE public.ACSage ADD id SERIAL PRIMARY KEY;
+
+DROP TABLE IF EXISTS public.ACSrace;
+
+CREATE TABLE public.ACSrace (
+	ACSid VARCHAR(1000),
+	geoid VARCHAR(255),
+	race VARCHAR(50),
+	count INTEGER NOT NULL,
+	year INTEGER NOT NULL,
+	sourcefile VARCHAR(255)
+);
+
+COPY public.ACSrace FROM '/home/vagrant/proj/acs-race.csv'
+	WITH(FORMAT CSV, HEADER);
+
+ALTER TABLE public.ACSrace ADD id SERIAL;
+
+DROP TABLE IF EXISTS public.ACSdisability;
+
+CREATE TABLE public.ACSdisability (
+	ACSid VARCHAR(1000),
+	geoid VARCHAR(255),
+	disability_status VARCHAR(50),
+	count INTEGER NOT NULL,
+	year INTEGER NOT NULL,
+	sourcefile VARCHAR(255)
+);
+
+COPY public.ACSdisability FROM '/home/vagrant/proj/acs-disability.csv'
+	WITH(FORMAT CSV, HEADER);
+
+ALTER TABLE public.ACSdisability ADD id SERIAL;
+
+DROP TABLE IF EXISTS public.ACSveteran;
+
+CREATE TABLE public.ACSveteran (
+	ACSid VARCHAR(1000),
+	geoid VARCHAR(255),
+	veteran_status VARCHAR(50),
+	count INTEGER NOT NULL,
+	year INTEGER NOT NULL,
+	sourcefile VARCHAR(255)
+);
+
+COPY public.ACSveteran FROM '/home/vagrant/proj/acs-veteran.csv'
+	WITH(FORMAT CSV, HEADER);
+
+ALTER TABLE public.ACSveteran ADD id SERIAL;
