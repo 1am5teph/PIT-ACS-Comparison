@@ -53,3 +53,23 @@ GROUP BY gender.gender;
 SELECT tempACS.*, tempPIT.PITtotal
 FROM tempACS
 INNER JOIN tempPIT ON tempACS.sex = tempPIT.gender;
+
+
+/* Compare race totals */
+DROP TABLE IF EXISTS tempACS, tempPIT;
+
+SELECT acsrace.race, sum(acsrace.count) AS ACStotal
+INTO tempACS
+FROM acsrace
+WHERE acsrace.year = 2015
+GROUP BY acsrace.race;
+
+SELECT ethnicity.ethnicity, sum(ethnicity.count) AS PITtotal
+INTO tempPIT
+FROM ethnicity
+WHERE ethnicity.year = 2015 OR ethnicity.year = 15
+GROUP BY ethnicity.ethnicity;
+
+SELECT tempACS.*, tempPIT.PITtotal
+FROM tempACS
+INNER JOIN tempPIT ON tempACS.race = tempPIT.ethnicity;
