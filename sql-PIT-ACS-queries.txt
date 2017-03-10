@@ -1,3 +1,7 @@
+-Break out sex from the age table
+-Reload age table to compare new data
+-Add percentages
+
 /* Compare age totals */
 DROP TABLE IF EXISTS tempACS, tempPIT;
 
@@ -17,8 +21,35 @@ SELECT tempACS.*, tempPIT.PITtotal
 FROM tempACS
 INNER JOIN tempPIT ON tempACS.age = tempPIT.age;
 
+
 /* Compare disability totals */
 SELECT sum(disability.count) AS PITtotal, (SELECT acsdisability.count AS ACStotal
 FROM public.acsdisability)
 FROM public.disability
 WHERE disability.year = 2015;
+
+
+/* Compare veterans totals */
+SELECT sum(veterans.count) AS PITtotal, (SELECT acsveteran.count AS ACStotal
+FROM public.acsveteran)
+FROM public.veterans
+WHERE veterans.year = 15;
+
+/* Compare sex totals */
+DROP TABLE IF EXISTS tempACS, tempPIT;
+
+SELECT acsage.sex, sum(acsage.count) AS ACStotal
+INTO tempACS
+FROM acsage
+WHERE acsage.year = 2015
+GROUP BY acsage.sex;
+
+SELECT gender.gender, sum(gender.count) AS PITtotal
+INTO tempPIT
+FROM gender
+WHERE gender.year = 2015
+GROUP BY gender.gender;
+
+SELECT tempACS.*, tempPIT.PITtotal
+FROM tempACS
+INNER JOIN tempPIT ON tempACS.sex = tempPIT.gender;
