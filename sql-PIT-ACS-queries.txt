@@ -16,3 +16,9 @@ GROUP BY agehousecomposition.age;
 SELECT tempACS.*, tempPIT.PITtotal
 FROM tempACS
 INNER JOIN tempPIT ON tempACS.age = tempPIT.age;
+
+/* Compare disability totals */
+SELECT sum(disability.count) AS PITtotal, (SELECT acsdisability.count AS ACStotal
+FROM public.acsdisability)
+FROM public.disability
+WHERE disability.year = 2015;
