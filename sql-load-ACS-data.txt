@@ -1,9 +1,9 @@
+/* Create Age Table */
 DROP TABLE IF EXISTS public.ACSage;
 
 CREATE TABLE public.ACSage (
 	ACSid VARCHAR(1000),
 	geoid VARCHAR(255),
-	sex VARCHAR(25),
 	age int4range,
 	count INTEGER NOT NULL,
 	year INTEGER NOT NULL,
@@ -15,6 +15,7 @@ COPY public.ACSage FROM '/home/vagrant/proj/acs-age.csv'
 
 ALTER TABLE public.ACSage ADD id SERIAL PRIMARY KEY;
 
+/* Create Race Table */
 DROP TABLE IF EXISTS public.ACSrace;
 
 CREATE TABLE public.ACSrace (
@@ -31,6 +32,8 @@ COPY public.ACSrace FROM '/home/vagrant/proj/acs-race.csv'
 
 ALTER TABLE public.ACSrace ADD id SERIAL;
 
+
+/* Create Disability Table */
 DROP TABLE IF EXISTS public.ACSdisability;
 
 CREATE TABLE public.ACSdisability (
@@ -47,6 +50,7 @@ COPY public.ACSdisability FROM '/home/vagrant/proj/acs-disability.csv'
 
 ALTER TABLE public.ACSdisability ADD id SERIAL;
 
+/* Create Veteran Table */
 DROP TABLE IF EXISTS public.ACSveteran;
 
 CREATE TABLE public.ACSveteran (
@@ -62,3 +66,20 @@ COPY public.ACSveteran FROM '/home/vagrant/proj/acs-veteran.csv'
 	WITH(FORMAT CSV, HEADER);
 
 ALTER TABLE public.ACSveteran ADD id SERIAL;
+
+/* Create Gender Table */
+DROP TABLE IF EXISTS public.ACSsex;
+
+CREATE TABLE public.ACSsex (
+	ACSid VARCHAR(1000),
+	geoid VARCHAR(255),
+	sex VARCHAR(50),
+	count INTEGER NOT NULL,
+	year INTEGER NOT NULL,
+	sourcefile VARCHAR(255)
+);
+
+COPY public.ACSsex FROM '/home/vagrant/proj/acs-sex.csv'
+	WITH(FORMAT CSV, HEADER);
+
+ALTER TABLE public.ACSsex ADD id SERIAL;
