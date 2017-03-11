@@ -1,6 +1,5 @@
--Break out sex from the age table
--Reload age table to compare new data
 -Add percentages
+-Age categories are not loading correctly.
 
 /* Compare age totals */
 DROP TABLE IF EXISTS tempACS, tempPIT;
@@ -38,11 +37,11 @@ WHERE veterans.year = 15;
 /* Compare sex totals */
 DROP TABLE IF EXISTS tempACS, tempPIT;
 
-SELECT acsage.sex, sum(acsage.count) AS ACStotal
+SELECT acssex.sex, sum(acssex.count) AS ACStotal
 INTO tempACS
-FROM acsage
-WHERE acsage.year = 2015
-GROUP BY acsage.sex;
+FROM acssex
+WHERE acssex.year = 2015
+GROUP BY acssex.sex;
 
 SELECT gender.gender, sum(gender.count) AS PITtotal
 INTO tempPIT
