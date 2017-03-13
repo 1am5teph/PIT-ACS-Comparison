@@ -21,18 +21,35 @@ FROM tempACS
 INNER JOIN tempPIT ON tempACS.age = tempPIT.age;
 
 
+
 /* Compare disability totals */
+DROP TABLE IF EXISTS temptbl;
+
 SELECT sum(disability.count) AS PITtotal, (SELECT acsdisability.count AS ACStotal
 FROM public.acsdisability)
+INTO TEMP temptbl
 FROM public.disability
 WHERE disability.year = 2015;
 
+/* Displays totals and percentages for disability */
+SELECT PITtotal, ROUND(PITtotal::decimal/acstotal::decimal*100, 2) AS percent, ACStotal
+FROM temptbl;
+
+
 
 /* Compare veterans totals */
+DROP TABLE IF EXISTS temptbl;
+
 SELECT sum(veterans.count) AS PITtotal, (SELECT acsveteran.count AS ACStotal
 FROM public.acsveteran)
+INTO TEMP temptbl
 FROM public.veterans
 WHERE veterans.year = 15;
+
+/* Displays totals and percentages for veterans */
+SELECT PITtotal, ROUND(PITtotal::decimal/acstotal::decimal*100, 4) AS percent, ACStotal
+FROM temptbl;
+
 
 /* Compare sex totals */
 DROP TABLE IF EXISTS tempACS, tempPIT;
