@@ -1,5 +1,4 @@
 GEOid,ACSid,Age,Count,Year,SourceFile
-HC01_EST_VC28,Total; Estimate; SELECTED AGE CATEGORIES - 18 years and over,"[18,]",635396,2015,ACS_15_1YR_S0101_with_ann.csv
 HC01_EST_VC28,"Reverse Percentage
 Total; Estimate; SELECTED AGE CATEGORIES - 18 years and over","[,18)",154898,2015,ACS_15_1YR_S0101_with_ann.csv
 HC01_EST_VC25,Total; Estimate; SELECTED AGE CATEGORIES - 18 to 24 years,"[18,24]",65594,2015,ACS_15_1YR_S0101_with_ann.csv
