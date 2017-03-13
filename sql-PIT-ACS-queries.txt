@@ -47,7 +47,7 @@ FROM public.veterans
 WHERE veterans.year = 15;
 
 /* Displays totals and percentages for veterans */
-SELECT PITtotal, ROUND(PITtotal::decimal/acstotal::decimal*100, 4) AS percent, ACStotal
+SELECT PITtotal, ROUND(PITtotal::decimal/acstotal::decimal*100, 2) AS percent, ACStotal
 FROM temptbl;
 
 
@@ -66,9 +66,11 @@ FROM gender
 WHERE gender.year = 2015
 GROUP BY gender.gender;
 
-SELECT tempACS.*, tempPIT.PITtotal
-FROM tempACS
-INNER JOIN tempPIT ON tempACS.sex = tempPIT.gender;
+SELECT tempPIT.gender, tempPIT.PITtotal, ROUND(tempPIT.PITtotal/(SELECT sum(tempPIT.PITtotal)
+	FROM tempPIT)::decimal*100.00, 2) AS PITpercent, tempACS.ACStotal, ROUND(tempACS.ACStotal/(SELECT sum(tempACS.ACStotal)
+	FROM tempACS)::decimal*100.00, 2) AS ACSpercent
+FROM tempPIT
+LEFT JOIN tempACS ON tempPIT.gender = tempACS.sex;
 
 
 /* Compare race totals */
@@ -86,6 +88,8 @@ FROM ethnicity
 WHERE ethnicity.year = 2015 OR ethnicity.year = 15
 GROUP BY ethnicity.ethnicity;
 
-SELECT tempACS.*, tempPIT.PITtotal
-FROM tempACS
-INNER JOIN tempPIT ON tempACS.race = tempPIT.ethnicity;
+/* Display totals and calculate percentage for race/ethnicity */
+SELECT tempPIT.ethnicity, tempPIT.PITtotal, ROUND(tempPIT.PITtotal::decimal/(SELECT sum(tempPIT.PITtotal) FROM tempPIT)::decimal*100, 2)
+AS PITpercent, tempACS.ACStotal, ROUND(tempACS.ACStotal::decimal/(SELECT sum(tempACS.ACStotal) FROM tempACS)::decimal*100, 2) AS ACSpercent
+FROM tempPIT
+INNER JOIN tempACS ON tempPIT.ethnicity = tempACS.race;
