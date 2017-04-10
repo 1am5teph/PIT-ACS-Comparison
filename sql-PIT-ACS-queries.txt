@@ -25,13 +25,16 @@ INNER JOIN tempACS ON tempPIT.age = tempACS.age;
 /* Query: PIT and ACS disability totals and percentages */
 DROP TABLE IF EXISTS temptbl;
 
-SELECT sum(disability.count) AS PITtotal, (SELECT acsdisability.count AS ACStotal
-FROM public.acsdisability)
+SELECT sum(disability.count) AS PITdisabledTotal, (SELECT acsdisability.count AS ACSdisabledTotal
+	FROM public.acsdisability
+	WHERE acsdisability.disability_status = 'disabled'), (SELECT acsdisability.count AS ACSpopulationTotal
+		FROM public.acsdisability
+		WHERE acsdisability.disability_status = 'all')
 INTO TEMP temptbl
 FROM public.disability
 WHERE disability.year = 2015;
 
-SELECT PITtotal, ROUND(PITtotal::decimal/acstotal::decimal*100.00, 2) AS percent, ACStotal
+SELECT PITdisabledTotal, ACSdisabledTotal, ACSpopulationTotal, ROUND(ACSdisabledTotal::decimal/ACSpopulationTotal::decimal*100.00, 2) AS ACSpercent
 FROM temptbl;
 
 
@@ -39,13 +42,16 @@ FROM temptbl;
 /* Query: PIT and ACS veteran totals and percentages */
 DROP TABLE IF EXISTS temptbl;
 
-SELECT sum(veterans.count) AS PITtotal, (SELECT acsveteran.count AS ACStotal
-FROM public.acsveteran)
+SELECT sum(veterans.count) AS PITveteranTotal, (SELECT acsveteran.count AS ACSveteranTotal
+	FROM public.acsveteran
+	WHERE acsveteran.veteran_status = 'veteran'), (SELECT acsveteran.count AS ACSpopulationTotal
+		FROM public.acsveteran
+		WHERE acsveteran.veteran_status = 'ALL')
 INTO TEMP temptbl
 FROM public.veterans
 WHERE veterans.year = 15;
 
-SELECT PITtotal, ROUND(PITtotal::decimal/acstotal::decimal*100.00, 2) AS percent, ACStotal
+SELECT PITveteranTotal, ACSveteranTotal, ACSpopulationTotal, ROUND(ACSveteranTotal::decimal/ACSpopulationTotal::decimal*100.00, 2) AS ACSpercent
 FROM temptbl;
 
 
